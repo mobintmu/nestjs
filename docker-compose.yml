@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  postgres-tasks:
+    image: postgres:13.4-buster
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: task
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    restart: always
+    ports: 
+      - 3001:5432
+    networks:
+      - tasks-network
+
+  admin:
+    image: adminer
+    restart: always
+    depends_on: 
+      - postgres-tasks
+    ports:
+      - 10000:8080
+    networks:
+      - tasks-network
+
+  liquibase:
+    image: liquibase/liquibase
+    command: tail -f /liquibase/changelog.xml
+    volumes:
+      - ./sql/changelog.xml:/liquibase/changelog.xml
+      - ./sql/migrations:/liquibase/migrations
+    networks:
+      - tasks-network
+
+volumes:
+  postgres-db:
+    driver: local
+
+networks:
+  tasks-network:
+    external: true
