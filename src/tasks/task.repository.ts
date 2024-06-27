@@ -36,4 +36,14 @@ export class TaskRepository extends Repository<Tasks> {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
   }
+
+  public async updateTaskStatus(
+    id: string,
+    status: TaskStatus,
+  ): Promise<Tasks> {
+    const task = await this.getTaskById(id);
+    task.status = status;
+    await this.save(task);
+    return task;
+  }
 }
