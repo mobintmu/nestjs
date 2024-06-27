@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskStatus } from './tasks-status.enum';
 
 @Entity()
-export class Task {
+export class Tasks {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -14,4 +14,7 @@ export class Task {
 
   @Column()
   status: TaskStatus;
+
+  @Column()
+  created_at: Date;
 }
