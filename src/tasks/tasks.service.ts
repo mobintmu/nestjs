@@ -20,4 +20,8 @@ export class TasksService {
     const task = this.taskRepository.createTask(createTaskDto);
     return task;
   }
+
+  async deleteTask(id: string): Promise<void> {
+    return await this.taskRepository.deleteTask(id);
+  }
 }

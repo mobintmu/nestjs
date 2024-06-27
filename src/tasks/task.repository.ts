@@ -29,4 +29,11 @@ export class TaskRepository extends Repository<Tasks> {
     await this.save(task);
     return task;
   }
+
+  public async deleteTask(id: string): Promise<void> {
+    const result = await this.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+  }
 }
