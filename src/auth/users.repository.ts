@@ -39,14 +39,14 @@ export class UsersRepository extends Repository<Users> {
 
   async validateUserPassword(
     authCredentialDto: AuthCredentialsDto,
-  ): Promise<string> {
+  ): Promise<boolean> {
     const { username, password } = authCredentialDto;
     const user = await this.findOne({ where: { username } });
 
     if (user && (await bycrypt.compare(password, user.password))) {
-      return 'success';
+      return true;
     } else {
-      return 'Invalid credentials';
+      return false;
     }
   }
 }
