@@ -36,4 +36,17 @@ export class UsersRepository extends Repository<Users> {
       }
     }
   }
+
+  async validateUserPassword(
+    authCredentialDto: AuthCredentialsDto,
+  ): Promise<string> {
+    const { username, password } = authCredentialDto;
+    const user = await this.findOne({ where: { username } });
+
+    if (user && (await bycrypt.compare(password, user.password))) {
+      return 'success';
+    } else {
+      return 'Invalid credentials';
+    }
+  }
 }
