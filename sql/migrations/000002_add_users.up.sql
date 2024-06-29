@@ -3,7 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS "users" (
   "id" uuid NOT NULL DEFAULT gen_random_uuid(),
-  "username" TEXT NOT NULL,
+  "username" TEXT UNIQUE NOT NULL,
   "password" TEXT NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
 
