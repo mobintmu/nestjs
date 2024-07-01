@@ -11,7 +11,7 @@ services:
       - postgres-db:/var/lib/postgresql/data
     restart: always
     ports: 
-      - 3001:5432
+      - 3002:5432
     networks:
       - tasks-network
 
@@ -21,7 +21,7 @@ services:
     depends_on: 
       - postgres-tasks
     ports:
-      - 10000:8080
+      - 10001:8080
     networks:
       - tasks-network
 
