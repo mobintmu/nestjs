@@ -1,5 +1,5 @@
 --liquibase formatted sql
--- changeset mobin:2
+-- changeset mobin:1
 
 CREATE TABLE IF NOT EXISTS "users" (
   "id" uuid NOT NULL DEFAULT gen_random_uuid(),
