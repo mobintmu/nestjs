@@ -7,14 +7,14 @@ CREATE TABLE IF NOT EXISTS "tasks" (
   "description" TEXT NOT NULL,
   "status" TEXT NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
-  "userId" uuid NULL,
+  "user_id" uuid NULL,
 
   PRIMARY KEY (id)
 );
 
 ALTER TABLE tasks
 ADD CONSTRAINT fk_tasks_users 
-FOREIGN KEY ("userId") REFERENCES users ("id");
+FOREIGN KEY ("user_id") REFERENCES users ("id");
 
 CREATE INDEX ON "tasks" ("id");
 --rollback DROP TABLE "tasks";

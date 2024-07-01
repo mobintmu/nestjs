@@ -4,14 +4,14 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { Users } from './user.entity';
+import { User } from './user.entity';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import * as bycrypt from 'bcrypt';
 
 @Injectable()
-export class UsersRepository extends Repository<Users> {
+export class UsersRepository extends Repository<User> {
   constructor(private ds: DataSource) {
-    super(Users, ds.createEntityManager());
+    super(User, ds.createEntityManager());
   }
 
   async createUser(authCredentialDto: AuthCredentialsDto): Promise<void> {

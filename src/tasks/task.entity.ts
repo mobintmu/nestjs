@@ -1,9 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TaskStatus } from './tasks-status.enum';
-import { Users } from 'src/auth/user.entity';
+import { User } from 'src/auth/user.entity';
 
-@Entity()
-export class Tasks {
+@Entity({ name: 'tasks' })
+export class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,8 +22,9 @@ export class Tasks {
   @Column()
   status: TaskStatus;
 
-  @ManyToOne(() => Users, (user) => user.tasks, { eager: false })
-  user: Users;
+  @ManyToOne(() => User, (user) => user.tasks, { eager: false })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
   created_at: Date;
