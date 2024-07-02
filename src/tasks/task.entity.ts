@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { TaskStatus } from './tasks-status.enum';
 import { User } from 'src/auth/user.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'tasks' })
 export class Task {
@@ -23,6 +24,7 @@ export class Task {
   status: TaskStatus;
 
   @ManyToOne(() => User, (user) => user.tasks, { eager: false })
+  @Exclude({ toPlainOnly: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
